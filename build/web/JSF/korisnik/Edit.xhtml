@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditKorisnikTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditKorisnikLabel_korisnikId}" for="korisnikId" />
+                    <h:inputText id="korisnikId" value="#{korisnikController.selected.korisnikId}" title="#{bundle.EditKorisnikTitle_korisnikId}" required="true" requiredMessage="#{bundle.EditKorisnikRequiredMessage_korisnikId}"/>
+                    <h:outputLabel value="#{bundle.EditKorisnikLabel_ime}" for="ime" />
+                    <h:inputText id="ime" value="#{korisnikController.selected.ime}" title="#{bundle.EditKorisnikTitle_ime}" />
+                    <h:outputLabel value="#{bundle.EditKorisnikLabel_prezime}" for="prezime" />
+                    <h:inputText id="prezime" value="#{korisnikController.selected.prezime}" title="#{bundle.EditKorisnikTitle_prezime}" />
+                    <h:outputLabel value="#{bundle.EditKorisnikLabel_datumUclanjivanja}" for="datumUclanjivanja" />
+                    <h:inputText id="datumUclanjivanja" value="#{korisnikController.selected.datumUclanjivanja}" title="#{bundle.EditKorisnikTitle_datumUclanjivanja}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditKorisnikLabel_telefon}" for="telefon" />
+                    <h:inputText id="telefon" value="#{korisnikController.selected.telefon}" title="#{bundle.EditKorisnikTitle_telefon}" />
+                </h:panelGrid>
+                <h:commandLink action="#{korisnikController.update}" value="#{bundle.EditKorisnikSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditKorisnikViewLink}"/>
+                <br />
+                <h:commandLink action="#{korisnikController.prepareList}" value="#{bundle.EditKorisnikShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditKorisnikIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

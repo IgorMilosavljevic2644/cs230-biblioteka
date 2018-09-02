@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditKnjigaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditKnjigaLabel_knjigaId}" for="knjigaId" />
+                    <h:inputText id="knjigaId" value="#{knjigaController.selected.knjigaId}" title="#{bundle.EditKnjigaTitle_knjigaId}" required="true" requiredMessage="#{bundle.EditKnjigaRequiredMessage_knjigaId}"/>
+                    <h:outputLabel value="#{bundle.EditKnjigaLabel_naziv}" for="naziv" />
+                    <h:inputText id="naziv" value="#{knjigaController.selected.naziv}" title="#{bundle.EditKnjigaTitle_naziv}" />
+                    <h:outputLabel value="#{bundle.EditKnjigaLabel_autor}" for="autor" />
+                    <h:inputText id="autor" value="#{knjigaController.selected.autor}" title="#{bundle.EditKnjigaTitle_autor}" />
+                    <h:outputLabel value="#{bundle.EditKnjigaLabel_godina}" for="godina" />
+                    <h:inputText id="godina" value="#{knjigaController.selected.godina}" title="#{bundle.EditKnjigaTitle_godina}" />
+                    <h:outputLabel value="#{bundle.EditKnjigaLabel_kolicina}" for="kolicina" />
+                    <h:inputText id="kolicina" value="#{knjigaController.selected.kolicina}" title="#{bundle.EditKnjigaTitle_kolicina}" />
+                </h:panelGrid>
+                <h:commandLink action="#{knjigaController.update}" value="#{bundle.EditKnjigaSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditKnjigaViewLink}"/>
+                <br />
+                <h:commandLink action="#{knjigaController.prepareList}" value="#{bundle.EditKnjigaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditKnjigaIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

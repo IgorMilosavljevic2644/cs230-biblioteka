@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateIznajmljivanjeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    <h3>Izaberi knjigu</h3>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListKnjigaEmpty}" rendered="#{knjigaController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{knjigaController.items.rowCount > 0}">
+                    <h:outputText value="#{knjigaController.pagination.pageFirstItem + 1}..#{knjigaController.pagination.pageLastItem + 1}/#{knjigaController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{knjigaController.previous}" value="#{bundle.Previous} #{knjigaController.pagination.pageSize}" rendered="#{knjigaController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{knjigaController.next}" value="#{bundle.Next} #{knjigaController.pagination.pageSize}" rendered="#{knjigaController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{knjigaController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListKnjigaTitle_knjigaId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.knjigaId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListKnjigaTitle_naziv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.naziv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListKnjigaTitle_autor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.autor}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListKnjigaTitle_godina}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.godina}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListKnjigaTitle_kolicina}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.kolicina}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{knjigaController.returnId()}" value="Izaberi"/>
+                            <h:outputText value=" "/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <h3>Izaberi korisnika</h3>
+                <h:panelGroup rendered="#{korisnikController.items.rowCount > 0}">
+                    <h:outputText value="#{korisnikController.pagination.pageFirstItem + 1}..#{korisnikController.pagination.pageLastItem + 1}/#{korisnikController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{korisnikController.previous}" value="#{bundle.Previous} #{korisnikController.pagination.pageSize}" rendered="#{korisnikController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{korisnikController.next}" value="#{bundle.Next} #{korisnikController.pagination.pageSize}" rendered="#{korisnikController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{korisnikController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListKorisnikTitle_korisnikId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.korisnikId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListKorisnikTitle_ime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ime}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListKorisnikTitle_prezime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prezime}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListKorisnikTitle_datumUclanjivanja}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.datumUclanjivanja}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{korisnikController.returnKorisnikId()}" value="Izaberi"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{iznajmljivanjeController.create}" value="#{bundle.CreateIznajmljivanjeSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{iznajmljivanjeController.prepareList}" value="#{bundle.CreateIznajmljivanjeShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateIznajmljivanjeIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

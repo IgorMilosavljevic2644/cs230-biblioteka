@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListIznajmljivanjeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListIznajmljivanjeEmpty}" rendered="#{iznajmljivanjeController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{iznajmljivanjeController.items.rowCount > 0}">
+                    <h:outputText value="#{iznajmljivanjeController.pagination.pageFirstItem + 1}..#{iznajmljivanjeController.pagination.pageLastItem + 1}/#{iznajmljivanjeController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{iznajmljivanjeController.previous}" value="#{bundle.Previous} #{iznajmljivanjeController.pagination.pageSize}" rendered="#{iznajmljivanjeController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{iznajmljivanjeController.next}" value="#{bundle.Next} #{iznajmljivanjeController.pagination.pageSize}" rendered="#{iznajmljivanjeController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{iznajmljivanjeController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIznajmljivanjeTitle_iznajmljivanjeId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.iznajmljivanjeId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIznajmljivanjeTitle_iznajmljivanjeDatum}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.iznajmljivanjeDatum}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIznajmljivanjeTitle_knjigaId}"/>
+                                
+                            </f:facet>
+                            <h:outputText value="#{item.knjigaId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIznajmljivanjeTitle_korisnikId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.korisnikId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{iznajmljivanjeController.prepareView}" value="#{bundle.ListIznajmljivanjeViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{iznajmljivanjeController.prepareEdit}" value="#{bundle.ListIznajmljivanjeEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{iznajmljivanjeController.destroy}" value="#{bundle.ListIznajmljivanjeDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{iznajmljivanjeController.prepareCreate}" value="Iznajmi knjigu"/>
+                <br />
+                <h:commandLink action="#{iznajmljivanjeController.prepareIzdavanje()}" value="Test"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListIznajmljivanjeIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

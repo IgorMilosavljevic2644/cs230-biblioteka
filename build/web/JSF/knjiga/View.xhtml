@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewKnjigaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewKnjigaLabel_knjigaId}"/>
+                    <h:outputText value="#{knjigaController.selected.knjigaId}" title="#{bundle.ViewKnjigaTitle_knjigaId}"/>
+                    <h:outputText value="#{bundle.ViewKnjigaLabel_naziv}"/>
+                    <h:outputText value="#{knjigaController.selected.naziv}" title="#{bundle.ViewKnjigaTitle_naziv}"/>
+                    <h:outputText value="#{bundle.ViewKnjigaLabel_autor}"/>
+                    <h:outputText value="#{knjigaController.selected.autor}" title="#{bundle.ViewKnjigaTitle_autor}"/>
+                    <h:outputText value="#{bundle.ViewKnjigaLabel_godina}"/>
+                    <h:outputText value="#{knjigaController.selected.godina}" title="#{bundle.ViewKnjigaTitle_godina}"/>
+                    <h:outputText value="#{bundle.ViewKnjigaLabel_kolicina}"/>
+                    <h:outputText value="#{knjigaController.selected.kolicina}" title="#{bundle.ViewKnjigaTitle_kolicina}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{knjigaController.destroyAndView}" value="#{bundle.ViewKnjigaDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewKnjigaEditLink}"/>
+                <br />
+                <h:commandLink action="#{knjigaController.prepareCreate}" value="#{bundle.ViewKnjigaCreateLink}" />
+                <br />
+                <h:commandLink action="#{knjigaController.prepareList}" value="#{bundle.ViewKnjigaShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewKnjigaIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

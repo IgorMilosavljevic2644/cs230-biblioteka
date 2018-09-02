@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateIznajmljivanjeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateIznajmljivanjeLabel_iznajmljivanjeId}" for="iznajmljivanjeId" />
+                    <h:inputText id="iznajmljivanjeId" value="#{iznajmljivanjeController.selected.iznajmljivanjeId}" title="#{bundle.CreateIznajmljivanjeTitle_iznajmljivanjeId}" required="true" requiredMessage="#{bundle.CreateIznajmljivanjeRequiredMessage_iznajmljivanjeId}"/>
+                    <h:outputLabel value="#{bundle.CreateIznajmljivanjeLabel_iznajmljivanjeDatum}" for="iznajmljivanjeDatum" />
+                    <h:inputText id="iznajmljivanjeDatum" value="#{iznajmljivanjeController.selected.iznajmljivanjeDatum}" title="#{bundle.CreateIznajmljivanjeTitle_iznajmljivanjeDatum}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateIznajmljivanjeLabel_knjigaId}" for="knjigaId" />
+                    <h:selectOneMenu id="knjigaId" value="#{iznajmljivanjeController.selected.knjigaId}" title="#{bundle.CreateIznajmljivanjeTitle_knjigaId}" >
+                        <f:selectItems value="#{knjigaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateIznajmljivanjeLabel_korisnikId}" for="korisnikId" />
+                    <h:selectOneMenu id="korisnikId" value="#{iznajmljivanjeController.selected.korisnikId}" title="#{bundle.CreateIznajmljivanjeTitle_korisnikId}" >
+                        <f:selectItems value="#{korisnikController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{iznajmljivanjeController.create}" value="#{bundle.CreateIznajmljivanjeSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{iznajmljivanjeController.prepareList}" value="#{bundle.CreateIznajmljivanjeShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateIznajmljivanjeIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
