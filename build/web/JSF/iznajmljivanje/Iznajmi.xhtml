@@ -23,46 +23,47 @@
                     <h:outputText value="#{knjigaController.pagination.pageFirstItem + 1}..#{knjigaController.pagination.pageLastItem + 1}/#{knjigaController.pagination.itemsCount}"/>&nbsp;
                     <h:commandLink action="#{knjigaController.previous}" value="#{bundle.Previous} #{knjigaController.pagination.pageSize}" rendered="#{knjigaController.pagination.hasPreviousPage}"/>&nbsp;
                     <h:commandLink action="#{knjigaController.next}" value="#{bundle.Next} #{knjigaController.pagination.pageSize}" rendered="#{knjigaController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{knjigaController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:dataTable value="#{knjigaController.items}" var="knjiga" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListKnjigaTitle_knjigaId}"/>
                             </f:facet>
-                            <h:outputText value="#{item.knjigaId}"/>
+                            <h:outputText value="#{knjiga.knjigaId}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListKnjigaTitle_naziv}"/>
                             </f:facet>
-                            <h:outputText value="#{item.naziv}"/>
+                            <h:outputText value="#{knjiga.naziv}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListKnjigaTitle_autor}"/>
                             </f:facet>
-                            <h:outputText value="#{item.autor}"/>
+                            <h:outputText value="#{knjiga.autor}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListKnjigaTitle_godina}"/>
                             </f:facet>
-                            <h:outputText value="#{item.godina}"/>
+                            <h:outputText value="#{knjiga.godina}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListKnjigaTitle_kolicina}"/>
                             </f:facet>
-                            <h:outputText value="#{item.kolicina}"/>
+                            <h:outputText value="#{knjiga.kolicina}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{knjigaController.returnId()}" value="Izaberi"/>
+                            <h:commandLink action="#{iznajmljivanjeController.postaviKnjigu(knjiga)}" styleClass="#{knjiga.getKnjigaId() == iznajmljivanjeController.getCurrentKnjigaId() ? 'prepared-for-rent' : ''}" value="Izaberi"/>
                             <h:outputText value=" "/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
+                
                 <h3>Izaberi korisnika</h3>
                 <h:panelGroup rendered="#{korisnikController.items.rowCount > 0}">
                     <h:outputText value="#{korisnikController.pagination.pageFirstItem + 1}..#{korisnikController.pagination.pageLastItem + 1}/#{korisnikController.pagination.itemsCount}"/>&nbsp;
@@ -99,12 +100,12 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{korisnikController.returnKorisnikId()}" value="Izaberi"/>
+                            <h:commandLink action="#{iznajmljivanjeController.postaviKorisnika(item)}" styleClass="#{item.getKorisnikId() == iznajmljivanjeController.getCurrentKorisnikId() ? 'prepared-for-rent' : ''}" value="Izaberi" />
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
                 <br />
-                <h:commandLink action="#{iznajmljivanjeController.create}" value="#{bundle.CreateIznajmljivanjeSaveLink}" />
+                <h:commandLink action="#{iznajmljivanjeController.iznajmi()}" value="#{bundle.CreateIznajmljivanjeSaveLink}" />
                 <br />
                 <br />
                 <h:commandLink action="#{iznajmljivanjeController.prepareList}" value="#{bundle.CreateIznajmljivanjeShowAllLink}" immediate="true"/>

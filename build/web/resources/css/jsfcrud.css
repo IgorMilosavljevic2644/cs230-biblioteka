@@ -80,3 +80,9 @@ tr.jsfcrud_even_row {
     left: 50%;
     top: 50%;
 }
+
+a.prepared-for-rent {
+    color: green;
+    border: none;
+    outline: none;
+}

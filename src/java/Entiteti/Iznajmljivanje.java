@@ -2,10 +2,15 @@
 package Entiteti;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -34,6 +39,7 @@ public class Iznajmljivanje implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "IZNAJMLJIVANJE_ID")
     private Integer iznajmljivanjeId;
     @Column(name = "IZNAJMLJIVANJE_DATUM")
@@ -45,8 +51,11 @@ public class Iznajmljivanje implements Serializable {
     @JoinColumn(name = "KORISNIK_ID", referencedColumnName = "KORISNIK_ID")
     @ManyToOne
     private Korisnik korisnikId;
+    
+    private static AtomicInteger iznajmljivanjeIdCounter = new AtomicInteger(0);
 
     public Iznajmljivanje() {
+        this.iznajmljivanjeId = iznajmljivanjeIdCounter.incrementAndGet();
     }
 
     public Iznajmljivanje(Integer iznajmljivanjeId) {
@@ -63,6 +72,14 @@ public class Iznajmljivanje implements Serializable {
 
     public Date getIznajmljivanjeDatum() {
         return iznajmljivanjeDatum;
+    }
+    
+    public String getIsticanjeDatum() {
+        SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(this.getIznajmljivanjeDatum());
+        calendar.add(Calendar.DATE, 20);
+        return date.format(calendar.getTime());
     }
 
     public void setIznajmljivanjeDatum(Date iznajmljivanjeDatum) {

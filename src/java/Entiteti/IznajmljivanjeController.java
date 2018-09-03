@@ -15,14 +15,15 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import java.util.Date;
 
 @Named("iznajmljivanjeController")
 @SessionScoped
 public class IznajmljivanjeController implements Serializable {
 
     private Iznajmljivanje current;
-    private Korisnik currentKorisnik;
-    private Knjiga currentKnjiga;
+    private Integer currentKorisnikId;
+    private Integer currentKnjigaId;
     private DataModel items = null;
     private DataModel knjigaItems = null;
     @EJB
@@ -87,13 +88,43 @@ public class IznajmljivanjeController implements Serializable {
         return "Iznajmi?faces-redirect=true";
     }
     
-    
-    public String getKnjigaItems(){
-        currentKnjiga = (Knjiga) getItems().getRowData();
-        System.out.println(currentKnjiga);
-        return "random";
+    public String postaviKnjigu(Knjiga knjiga) {
+        System.out.println("KNJIGA!!!!!!!!");
+        System.out.println(current);
+        current.setKnjigaId(knjiga);
+        currentKnjigaId = knjiga.getKnjigaId();
+        System.out.println(current.getKnjigaId());
+        JsfUtil.addSuccessMessage("Knjiga postavljena");
+        return "Iznajmi";
     }
     
+    public String postaviKorisnika(Korisnik korisnik) {
+        current.setKorisnikId(korisnik);
+        currentKorisnikId = korisnik.getKorisnikId();
+        JsfUtil.addSuccessMessage("Korisnik postavljen");
+        return "Iznajmi";
+    }
+    
+    public String iznajmi() {
+        current.setIznajmljivanjeDatum(new Date());
+
+        getFacade().create(current);
+        current = new Iznajmljivanje();
+        currentKorisnikId = null;
+        currentKnjigaId = null;
+        selectedItemIndex = -1;
+
+        JsfUtil.addSuccessMessage("Iznajmljivanje uspešno");
+        return "Iznajmi";
+    }
+    
+    public Integer getCurrentKnjigaId() {
+        return this.currentKnjigaId;
+    }
+    
+    public Integer getCurrentKorisnikId() {
+        return this.currentKorisnikId;
+    }
 
     public String create() {
         try {

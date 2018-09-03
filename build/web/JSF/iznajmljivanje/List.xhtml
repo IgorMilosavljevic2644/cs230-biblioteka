@@ -31,7 +31,15 @@
                                 <h:outputText value="#{bundle.ListIznajmljivanjeTitle_iznajmljivanjeDatum}"/>
                             </f:facet>
                             <h:outputText value="#{item.iznajmljivanjeDatum}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Datum isticanja"/>
+                            </f:facet>
+                            <h:outputText value="#{item.getIsticanjeDatum()}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </h:column>
                         <h:column>
