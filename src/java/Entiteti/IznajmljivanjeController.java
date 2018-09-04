@@ -94,14 +94,12 @@ public class IznajmljivanjeController implements Serializable {
         current.setKnjigaId(knjiga);
         currentKnjigaId = knjiga.getKnjigaId();
         System.out.println(current.getKnjigaId());
-        JsfUtil.addSuccessMessage("Knjiga postavljena");
         return "Iznajmi";
     }
     
     public String postaviKorisnika(Korisnik korisnik) {
         current.setKorisnikId(korisnik);
         currentKorisnikId = korisnik.getKorisnikId();
-        JsfUtil.addSuccessMessage("Korisnik postavljen");
         return "Iznajmi";
     }
     
@@ -113,8 +111,7 @@ public class IznajmljivanjeController implements Serializable {
         currentKorisnikId = null;
         currentKnjigaId = null;
         selectedItemIndex = -1;
-
-        JsfUtil.addSuccessMessage("Iznajmljivanje uspešno");
+        JsfUtil.addSuccessMessage("Knjiga uspešno iznajmljena");
         return "Iznajmi";
     }
     
